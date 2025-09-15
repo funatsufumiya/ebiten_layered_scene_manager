@@ -10,6 +10,7 @@ import (
 	"github.com/funatsufumiya/ebiten_layered_scene_manager/layered_manager"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
 const (
@@ -32,9 +33,21 @@ func (l *CounterLayer) Update() { l.Count++ }
 func (l *CounterLayer) Draw(screen *ebiten.Image) {
 	c := l.Color
 	c.A = uint8(l.Alpha * 255)
-	screen.Fill(c)
+	// screen.Fill(c)
+	vector.DrawFilledRect(screen, 0, 0, screenWidth, screenHeight, c, false)
 	s := fmt.Sprintf("Layer: %s, Count: %d", l.Name, l.Count)
-	ebitenutil.DebugPrintAt(screen, s, 20, 20)
+	var y int
+	switch l.Name {
+	case "A":
+		y = 40
+	case "B":
+		y = 80
+	case "C":
+		y = 120
+	default:
+		y = 20
+	}
+	ebitenutil.DebugPrintAt(screen, s, 20, y)
 }
 func (l *CounterLayer) Draw2dFront(screen *ebiten.Image) {}
 func (l *CounterLayer) Draw2dBack(screen *ebiten.Image) {}
@@ -73,7 +86,10 @@ func (g *Game) Update() error {
 	       l := g.manager.GetLayer(name)
 	       if cl, ok := l.(*CounterLayer); ok {
 		       offset := float64(i) * (2 * math.Pi / 3)
-		       alpha := 0.5 + 0.5*math.Sin(phase*2*math.Pi+offset)
+		       alpha := 0.5 + 0.5*math.Sin(phase*math.Pi*2+offset)
+		    //    if alpha < 0.1 {
+			//        alpha = 0
+		    //    }
 		       cl.Alpha = float32(alpha)
 	       }
        }
