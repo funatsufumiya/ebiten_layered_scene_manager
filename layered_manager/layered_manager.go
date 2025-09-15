@@ -8,6 +8,13 @@ type LayerBase struct {
 	Name      string
 	Alpha     float32
 }
+func (l *LayerBase) Enter() {}
+func (l *LayerBase) Exit() {}
+func (l *LayerBase) Reset() {}
+func (l *LayerBase) Update() {}
+func (l *LayerBase) Draw(screen *ebiten.Image) {}
+func (l *LayerBase) DrawFront(screen *ebiten.Image) {}
+func (l *LayerBase) DrawBack(screen *ebiten.Image) {}
 func (l *LayerBase) IsVisible() bool { return l.Alpha > 0.0 }
 func (l *LayerBase) GetName() string { return l.Name }
 

@@ -22,20 +22,19 @@ type State int
 
 type CounterLayer struct {
 	layered_manager.LayerBase
-	Count int
 	Color color.RGBA
 }
 
-func (l *CounterLayer) Enter()  {}
-func (l *CounterLayer) Exit()   {}
-func (l *CounterLayer) Reset()  { l.Count = 0 }
-func (l *CounterLayer) Update() { l.Count++ }
+// func (l *CounterLayer) Enter()  { fmt.Println("enter:", l.Name)}
+// func (l *CounterLayer) Exit()   {}
+// func (l *CounterLayer) Reset()  {}
+// func (l *CounterLayer) Update() {}
 func (l *CounterLayer) Draw(screen *ebiten.Image) {
 	c := l.Color
 	c.A = uint8(l.Alpha * 255)
 	// screen.Fill(c)
 	vector.DrawFilledRect(screen, 0, 0, screenWidth, screenHeight, c, false)
-	s := fmt.Sprintf("Layer: %s, Count: %d", l.Name, l.Count)
+	s := fmt.Sprintf("Layer: %s, Count: %d", l.Name)
 	var y int
 	switch l.Name {
 	case "A":
@@ -53,9 +52,9 @@ func (l *CounterLayer) DrawFront(screen *ebiten.Image) {}
 func (l *CounterLayer) DrawBack(screen *ebiten.Image) {}
 
 func main() {
-	layerA := &CounterLayer{layered_manager.LayerBase{Name: "A", Alpha: 1}, 0, color.RGBA{255, 0, 0, 255}}
-	layerB := &CounterLayer{layered_manager.LayerBase{Name: "B", Alpha: 1}, 0, color.RGBA{0, 255, 0, 255}}
-	layerC := &CounterLayer{layered_manager.LayerBase{Name: "C", Alpha: 1}, 0, color.RGBA{0, 0, 255, 255}}
+	layerA := &CounterLayer{layered_manager.LayerBase{Name: "A", Alpha: 1}, color.RGBA{255, 0, 0, 255}}
+	layerB := &CounterLayer{layered_manager.LayerBase{Name: "B", Alpha: 1}, color.RGBA{0, 255, 0, 255}}
+	layerC := &CounterLayer{layered_manager.LayerBase{Name: "C", Alpha: 1}, color.RGBA{0, 0, 255, 255}}
 
 	manager := layered_manager.NewLayeredSceneManager()
 	manager.AddLayer(layerA)
