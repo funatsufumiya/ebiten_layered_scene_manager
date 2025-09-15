@@ -49,8 +49,8 @@ func (l *CounterLayer) Draw(screen *ebiten.Image) {
 	}
 	ebitenutil.DebugPrintAt(screen, s, 20, y)
 }
-func (l *CounterLayer) Draw2dFront(screen *ebiten.Image) {}
-func (l *CounterLayer) Draw2dBack(screen *ebiten.Image) {}
+func (l *CounterLayer) DrawFront(screen *ebiten.Image) {}
+func (l *CounterLayer) DrawBack(screen *ebiten.Image) {}
 
 func main() {
 	layerA := &CounterLayer{layered_manager.LayerBase{Name: "A", Alpha: 1}, 0, color.RGBA{255, 0, 0, 255}}

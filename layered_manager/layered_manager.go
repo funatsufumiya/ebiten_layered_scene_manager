@@ -23,8 +23,8 @@ type Layer interface {
 	GetName() string
 	Update()
 	Draw(screen *ebiten.Image)
-	Draw2dFront(screen *ebiten.Image)
-	Draw2dBack(screen *ebiten.Image)
+	DrawFront(screen *ebiten.Image)
+	DrawBack(screen *ebiten.Image)
 	Enter()
 	Exit()
 	Reset()
@@ -55,7 +55,6 @@ func (m *LayeredSceneManager) RemoveLayer(name string) {
 
 func (m *LayeredSceneManager) Update() {
        for _, l := range m.layers {
-	       // Layer側でVisibleフィールドを持つ場合は型アサーションで判定
 	       if lb, ok := l.(interface{ Visible() bool }); ok {
 		       if lb.Visible() {
 			       l.Update()
@@ -70,10 +69,10 @@ func (m *LayeredSceneManager) Draw(screen *ebiten.Image) {
        for _, l := range m.layers {
 	       if lb, ok := l.(interface{ IsVisible() bool }); ok {
 		       if lb.IsVisible() {
-			       l.Draw2dBack(screen)
+			       l.DrawBack(screen)
 		       }
 	       } else {
-		       l.Draw2dBack(screen)
+		       l.DrawBack(screen)
 	       }
        }
        for _, l := range m.layers {
@@ -88,10 +87,10 @@ func (m *LayeredSceneManager) Draw(screen *ebiten.Image) {
        for _, l := range m.layers {
 	       if lb, ok := l.(interface{ IsVisible() bool }); ok {
 		       if lb.IsVisible() {
-			       l.Draw2dFront(screen)
+			       l.DrawFront(screen)
 		       }
 	       } else {
-		       l.Draw2dFront(screen)
+		       l.DrawFront(screen)
 	       }
        }
 }
