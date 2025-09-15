@@ -29,6 +29,9 @@ type CounterLayer struct {
 // func (l *CounterLayer) Exit()   {}
 // func (l *CounterLayer) Reset()  {}
 // func (l *CounterLayer) Update() {}
+// func (l *CounterLayer) DrawFront(screen *ebiten.Image) {}
+// func (l *CounterLayer) DrawBack(screen *ebiten.Image) {}
+
 func (l *CounterLayer) Draw(screen *ebiten.Image) {
 	c := l.Color
 	c.A = uint8(l.Alpha * 255)
@@ -48,8 +51,6 @@ func (l *CounterLayer) Draw(screen *ebiten.Image) {
 	}
 	ebitenutil.DebugPrintAt(screen, s, 20, y)
 }
-func (l *CounterLayer) DrawFront(screen *ebiten.Image) {}
-func (l *CounterLayer) DrawBack(screen *ebiten.Image) {}
 
 func main() {
 	layerA := &CounterLayer{layered_manager.LayerBase{Name: "A", Alpha: 1}, color.RGBA{255, 0, 0, 255}}
