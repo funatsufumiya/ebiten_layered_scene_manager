@@ -40,9 +40,9 @@ func (l *CounterLayer) Draw2dFront(screen *ebiten.Image) {}
 func (l *CounterLayer) Draw2dBack(screen *ebiten.Image) {}
 
 func main() {
-	layerA := &CounterLayer{layered_manager.LayerBase{Name: "A", Alpha: 1, Visible: true}, 0, color.RGBA{255, 0, 0, 255}}
-	layerB := &CounterLayer{layered_manager.LayerBase{Name: "B", Alpha: 1, Visible: true}, 0, color.RGBA{0, 255, 0, 255}}
-	layerC := &CounterLayer{layered_manager.LayerBase{Name: "C", Alpha: 1, Visible: true}, 0, color.RGBA{0, 0, 255, 255}}
+	layerA := &CounterLayer{layered_manager.LayerBase{Name: "A", Alpha: 1}, 0, color.RGBA{255, 0, 0, 255}}
+	layerB := &CounterLayer{layered_manager.LayerBase{Name: "B", Alpha: 1}, 0, color.RGBA{0, 255, 0, 255}}
+	layerC := &CounterLayer{layered_manager.LayerBase{Name: "C", Alpha: 1}, 0, color.RGBA{0, 0, 255, 255}}
 
 	manager := layered_manager.NewLayeredSceneManager()
 	manager.AddLayer(layerA)
@@ -75,7 +75,6 @@ func (g *Game) Update() error {
 		       offset := float64(i) * (2 * math.Pi / 3)
 		       alpha := 0.5 + 0.5*math.Sin(phase*2*math.Pi+offset)
 		       cl.Alpha = float32(alpha)
-		       cl.Visible = alpha > 0.1
 	       }
        }
        g.manager.Update()

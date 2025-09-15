@@ -7,9 +7,8 @@ import (
 type LayerBase struct {
 	Name      string
 	Alpha     float32
-	Visible	  bool
 }
-func (l *LayerBase) IsVisible() bool { return l.Visible }
+func (l *LayerBase) IsVisible() bool { return l.Alpha > 0.0 }
 func (l *LayerBase) GetName() string { return l.Name }
 
 type BlendMode int
